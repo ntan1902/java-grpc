@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package com.grpc.user;
+option java_outer_classname = "UserGrpc";
+option java_multiple_files = true;
+
+service UserService {
+  rpc FindAllUsers(EmptyRequest) returns (AllUsersResponse);
+  rpc InsertUser(UserItem) returns (APIResponse);
+  rpc FindUserById(UserIdRequest) returns (UserItem);
+  rpc UpdateUserById(UserItem) returns (APIResponse);
+  rpc DeleteUserById(UserIdRequest) returns (APIResponse);
+}
+
+message APIResponse {
+  string responseMessage = 1;
+  int32 responseCode = 2;
+}
+
+message AllUsersResponse {
+  repeated UserItem users = 1;
+}
+
+message UserItem {
+  double id = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message EmptyRequest {
+}
+
+message UserIdRequest {
+  double id = 1;
+}
